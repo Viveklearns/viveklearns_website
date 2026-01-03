@@ -1,0 +1,576 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Half Marathon Training Complete//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Half Marathon Training - Sub 2:00 (Complete)
+X-WR-TIMEZONE:America/New_York
+
+BEGIN:VEVENT
+UID:week1-monday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260105T123000Z
+DTEND:20260105T133000Z
+SUMMARY:Cross-Training or Rest (30-45 min)
+DESCRIPTION:Week 1 - Monday\nOptional: Easy cycling, swimming, or yoga\n30-45 minutes easy\nOR complete rest
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week1-tuesday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260106T123000Z
+DTEND:20260106T133000Z
+SUMMARY:Easy Run: 3 miles
+DESCRIPTION:Week 1 - Tuesday\n3 miles @ easy pace (10:30-11:00/mi)\nConversational effort\nFocus on form
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week1-wednesday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260107T123000Z
+DTEND:20260107T133000Z
+SUMMARY:Speed Work: 6 x 400m @ 8:30/mi
+DESCRIPTION:Week 1 - Wednesday\nWarm up 10 min easy\n6 x 400m @ 8:30/mile pace\n400m jog recovery between reps\nCool down 10 min easy\n\nFocus: Form and rhythm
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week1-thursday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260108T123000Z
+DTEND:20260108T133000Z
+SUMMARY:Easy Run: 3 miles
+DESCRIPTION:Week 1 - Thursday\n3 miles @ easy pace (10:30-11:00/mi)\nRecovery from speed work\nStay relaxed
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week1-friday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260109T123000Z
+DTEND:20260109T133000Z
+SUMMARY:REST DAY
+DESCRIPTION:Week 1 - Friday\nComplete rest\nStretch, foam roll\nIce Achilles if needed\nGet ready for weekend runs
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week1-saturday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260110T123000Z
+DTEND:20260110T133000Z
+SUMMARY:Easy Run: 3 miles @ 10:30/mi
+DESCRIPTION:Week 1 - Saturday\n3 miles easy\nPace: 10:30/mile\nRecovery run before long run
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week1-sunday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260111T123000Z
+DTEND:20260111T133000Z
+SUMMARY:Long Run: 6 miles @ 10:15/mi
+DESCRIPTION:Week 1 - Sunday\n6 miles @ 10:15/mile\nStay comfortable\nPractice hydration strategy
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week2-monday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260112T123000Z
+DTEND:20260112T133000Z
+SUMMARY:Cross-Training or Rest (30-45 min)
+DESCRIPTION:Week 2 - Monday\nOptional: Easy cycling, swimming, or yoga\n30-45 minutes easy\nOR complete rest
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week2-tuesday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260113T123000Z
+DTEND:20260113T133000Z
+SUMMARY:Easy Run: 4 miles
+DESCRIPTION:Week 2 - Tuesday\n4 miles @ easy pace (10:30-11:00/mi)\nConversational effort\nBuilding base
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week2-wednesday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260114T123000Z
+DTEND:20260114T133000Z
+SUMMARY:Tempo Run: 1 easy + 3 @ 9:10 + 1 easy
+DESCRIPTION:Week 2 - Wednesday\n1 mile easy warm up\n3 miles @ 9:10/mile (comfortably hard)\n1 mile easy cool down\n\nFocus: Sustained effort
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week2-thursday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260115T123000Z
+DTEND:20260115T133000Z
+SUMMARY:Easy Run: 4 miles
+DESCRIPTION:Week 2 - Thursday\n4 miles @ easy pace (10:30-11:00/mi)\nRecovery from tempo\nStay relaxed
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week2-friday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260116T123000Z
+DTEND:20260116T133000Z
+SUMMARY:REST DAY
+DESCRIPTION:Week 2 - Friday\nComplete rest\nStretch, foam roll\nIce Achilles if needed\nPrepare for weekend
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week2-saturday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260117T123000Z
+DTEND:20260117T133000Z
+SUMMARY:Race Pace Practice: 4 miles @ 9:30/mi
+DESCRIPTION:Week 2 - Saturday\n4 miles @ 9:30/mile\nPractice goal race pace\nGet comfortable with the effort
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week2-sunday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260118T123000Z
+DTEND:20260118T133000Z
+SUMMARY:Long Run: 7 miles @ 10:15/mi
+DESCRIPTION:Week 2 - Sunday\n7 miles @ 10:15/mile\nBuild endurance\nStay comfortable
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week3-monday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260119T123000Z
+DTEND:20260119T133000Z
+SUMMARY:Cross-Training or Rest (45 min)
+DESCRIPTION:Week 3 - Monday\nOptional: Easy cycling, swimming, or yoga\n45 minutes easy\nOR complete rest
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week3-tuesday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260120T123000Z
+DTEND:20260120T133000Z
+SUMMARY:Easy Run: 4 miles
+DESCRIPTION:Week 3 - Tuesday\n4 miles @ easy pace (10:30-11:00/mi)\nConversational effort\nMileage building
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week3-wednesday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260121T123000Z
+DTEND:20260121T133000Z
+SUMMARY:Speed Work: 8 x 400m @ 8:30/mi
+DESCRIPTION:Week 3 - Wednesday\nWarm up 10 min easy\n8 x 400m @ 8:30/mile pace\n400m jog recovery\nCool down 10 min\n\nBuilding volume
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week3-thursday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260122T123000Z
+DTEND:20260122T133000Z
+SUMMARY:Easy Run: 4 miles
+DESCRIPTION:Week 3 - Thursday\n4 miles @ easy pace (10:30-11:00/mi)\nRecovery from intervals\nStay easy
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week3-friday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260123T123000Z
+DTEND:20260123T133000Z
+SUMMARY:REST DAY
+DESCRIPTION:Week 3 - Friday\nComplete rest\nStretch, foam roll\nIce Achilles\nPrepare for weekend
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week3-saturday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260124T123000Z
+DTEND:20260124T133000Z
+SUMMARY:Easy Run: 4 miles easy
+DESCRIPTION:Week 3 - Saturday\n4 miles @ easy pace\n10:30/mile\nRecovery run
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week3-sunday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260125T123000Z
+DTEND:20260125T133000Z
+SUMMARY:Long Run: 8 miles @ 10:00/mi
+DESCRIPTION:Week 3 - Sunday\n8 miles @ 10:00/mile\nGetting stronger\nStay steady
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week4-monday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260126T123000Z
+DTEND:20260126T133000Z
+SUMMARY:Cross-Training or Rest (30 min)
+DESCRIPTION:Week 4 - Monday (RECOVERY WEEK)\nEasy cycling, swimming, or yoga\n30 minutes light\nOR complete rest
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week4-tuesday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260127T123000Z
+DTEND:20260127T133000Z
+SUMMARY:Easy Run: 3 miles
+DESCRIPTION:Week 4 - Tuesday (RECOVERY WEEK)\n3 miles @ easy pace\nVery easy effort\nLet body recover
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week4-wednesday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260128T123000Z
+DTEND:20260128T133000Z
+SUMMARY:Recovery Speed: 5 x 400m @ 8:40/mi
+DESCRIPTION:Week 4 - Wednesday (RECOVERY WEEK)\n5 x 400m @ 8:40/mile\nEasier effort than normal\nThis is intentionally lighter
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week4-thursday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260129T123000Z
+DTEND:20260129T133000Z
+SUMMARY:Easy Run: 3 miles
+DESCRIPTION:Week 4 - Thursday (RECOVERY WEEK)\n3 miles @ easy pace\nVery relaxed\nRecovery focus
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week4-friday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260130T123000Z
+DTEND:20260130T133000Z
+SUMMARY:REST DAY
+DESCRIPTION:Week 4 - Friday (RECOVERY WEEK)\nComplete rest\nExtra recovery this week\nStretch and relax
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week4-saturday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260131T123000Z
+DTEND:20260131T133000Z
+SUMMARY:Easy Run: 3 miles easy
+DESCRIPTION:Week 4 - Saturday (RECOVERY WEEK)\n3 miles @ easy pace\n10:30/mile\nLight recovery run
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week4-sunday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260201T123000Z
+DTEND:20260201T133000Z
+SUMMARY:Recovery Long Run: 6 miles @ 10:30/mi
+DESCRIPTION:Week 4 - Sunday (RECOVERY WEEK)\n6 miles @ 10:30/mile\nBack off volume\nLet your body recover and adapt
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week5-monday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260202T123000Z
+DTEND:20260202T133000Z
+SUMMARY:Cross-Training (45 min)
+DESCRIPTION:Week 5 - Monday\nCycling, swimming, or yoga\n45 minutes moderate\nActive recovery
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week5-tuesday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260203T123000Z
+DTEND:20260203T133000Z
+SUMMARY:Easy Run: 4 miles
+DESCRIPTION:Week 5 - Tuesday\n4 miles @ easy pace (10:30-11:00/mi)\nConversational effort\nBack to building
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week5-wednesday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260204T123000Z
+DTEND:20260204T133000Z
+SUMMARY:Hill Repeats: 8 x 2 min hard uphill
+DESCRIPTION:Week 5 - Wednesday\nFind a good hill\nWarm up 10 min\n8 x 2 min hard uphill effort\nJog down recovery\n\nBuilds strength and power
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week5-thursday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260205T123000Z
+DTEND:20260205T133000Z
+SUMMARY:Easy Run: 5 miles
+DESCRIPTION:Week 5 - Thursday\n5 miles @ easy pace (10:30-11:00/mi)\nRecovery from hills\nStay relaxed
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week5-friday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260206T123000Z
+DTEND:20260206T133000Z
+SUMMARY:REST DAY
+DESCRIPTION:Week 5 - Friday\nComplete rest\nStretch, foam roll\nIce Achilles\nBig weekend ahead
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week5-saturday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260207T123000Z
+DTEND:20260207T133000Z
+SUMMARY:Race Pace: 5 miles @ 9:20/mi
+DESCRIPTION:Week 5 - Saturday\n5 miles @ 9:20/mile\nInclude race pace sections\nPractice goal effort
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week5-sunday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260208T123000Z
+DTEND:20260208T133000Z
+SUMMARY:Long Run: 9 miles @ 10:00/mi
+DESCRIPTION:Week 5 - Sunday\n9 miles @ 10:00/mile\nBuilding to peak\nStay strong
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week6-monday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260209T123000Z
+DTEND:20260209T133000Z
+SUMMARY:Cross-Training (45-60 min)
+DESCRIPTION:Week 6 - Monday\nCycling, swimming, or yoga\n45-60 minutes moderate\nActive recovery
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week6-tuesday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260210T123000Z
+DTEND:20260210T133000Z
+SUMMARY:Easy Run: 5 miles
+DESCRIPTION:Week 6 - Tuesday\n5 miles @ easy pace (10:30-11:00/mi)\nConversational effort\nBuilding fitness
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week6-wednesday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260211T123000Z
+DTEND:20260211T133000Z
+SUMMARY:Tempo Run: 1 easy + 4 @ 9:05 + 1 easy
+DESCRIPTION:Week 6 - Wednesday\n1 mile easy warm up\n4 miles @ 9:05/mile (comfortably hard)\n1 mile easy cool down\n\nLongest tempo effort!
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week6-thursday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260212T123000Z
+DTEND:20260212T133000Z
+SUMMARY:Easy Run: 5 miles
+DESCRIPTION:Week 6 - Thursday\n5 miles @ easy pace (10:30-11:00/mi)\nRecovery from tempo\nStay easy
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week6-friday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260213T123000Z
+DTEND:20260213T133000Z
+SUMMARY:REST DAY
+DESCRIPTION:Week 6 - Friday\nComplete rest\nStretch, foam roll\nIce Achilles\n10 miles tomorrow!
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week6-saturday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260214T123000Z
+DTEND:20260214T133000Z
+SUMMARY:Easy Run: 4 miles easy
+DESCRIPTION:Week 6 - Saturday\n4 miles @ easy pace\n10:30/mile\nRecovery before 10-miler
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week6-sunday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260215T123000Z
+DTEND:20260215T133000Z
+SUMMARY:Long Run: 10 miles @ 10:00/mi
+DESCRIPTION:Week 6 - Sunday\n10 miles @ 10:00/mile\nDouble digits!\nPractice race nutrition
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week7-monday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260216T123000Z
+DTEND:20260216T133000Z
+SUMMARY:Cross-Training (60 min)
+DESCRIPTION:Week 7 - Monday (PEAK WEEK)\nCycling, swimming, or yoga\n60 minutes moderate\nActive recovery
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week7-tuesday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260217T123000Z
+DTEND:20260217T133000Z
+SUMMARY:Easy Run: 5 miles
+DESCRIPTION:Week 7 - Tuesday (PEAK WEEK)\n5 miles @ easy pace (10:30-11:00/mi)\nConversational effort\nBig week ahead
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week7-wednesday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260218T123000Z
+DTEND:20260218T133000Z
+SUMMARY:Speed Work: 5 x 800m @ 8:35/mi
+DESCRIPTION:Week 7 - Wednesday (PEAK WEEK)\nWarm up 10 min\n5 x 800m @ 8:35/mile\n400m jog recovery\nCool down 10 min\n\nLonger intervals
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week7-thursday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260219T123000Z
+DTEND:20260219T133000Z
+SUMMARY:Easy Run: 5 miles
+DESCRIPTION:Week 7 - Thursday (PEAK WEEK)\n5 miles @ easy pace (10:30-11:00/mi)\nRecovery from 800s\nStay relaxed
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week7-friday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260220T123000Z
+DTEND:20260220T133000Z
+SUMMARY:REST DAY
+DESCRIPTION:Week 7 - Friday (PEAK WEEK)\nComplete rest\nStretch, foam roll\nIce Achilles\nBig weekend - 6 mi Sat, 12 mi Sun!
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week7-saturday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260221T123000Z
+DTEND:20260221T133000Z
+SUMMARY:Race Simulation: 6 miles @ 9:15/mi
+DESCRIPTION:Week 7 - Saturday (PEAK WEEK)\n6 miles @ 9:15/mile\nSimulate race effort\nMental and physical prep
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week7-sunday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260222T123000Z
+DTEND:20260222T133000Z
+SUMMARY:🏔️ PEAK LONG RUN: 12 miles @ 10:00/mi
+DESCRIPTION:Week 7 - Sunday (PEAK WEEK)\nLONGEST RUN - 12 miles!\nPace: 10:00/mile\nPractice race nutrition every 3-4 miles\nStay strong mentally\n\nThis is your confidence builder!
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week8-monday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260223T123000Z
+DTEND:20260223T133000Z
+SUMMARY:Cross-Training or Rest (30-45 min)
+DESCRIPTION:Week 8 - Monday (TAPER BEGINS)\nLight cycling, swimming, or yoga\n30-45 minutes easy\nOR complete rest\nRecovering from peak week
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week8-tuesday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260224T123000Z
+DTEND:20260224T133000Z
+SUMMARY:Easy Run: 4 miles
+DESCRIPTION:Week 8 - Tuesday (TAPER)\n4 miles @ easy pace (10:30-11:00/mi)\nEasy effort\nTaper begins
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week8-wednesday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260225T123000Z
+DTEND:20260225T133000Z
+SUMMARY:Tempo Run: 1 easy + 4 @ 9:00 + 1 easy
+DESCRIPTION:Week 8 - Wednesday (TAPER)\n1 mile easy warm up\n4 miles @ 9:00/mile\n1 mile easy cool down\n\nMaintain quality, reduce volume
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week8-thursday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260226T123000Z
+DTEND:20260226T133000Z
+SUMMARY:Easy Run: 4 miles
+DESCRIPTION:Week 8 - Thursday (TAPER)\n4 miles @ easy pace (10:30-11:00/mi)\nRecovery run\nStay fresh
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week8-friday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260227T123000Z
+DTEND:20260227T133000Z
+SUMMARY:REST DAY
+DESCRIPTION:Week 8 - Friday (TAPER)\nComplete rest\nStretch, foam roll\nIce Achilles\nLetting body recover
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week8-saturday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260228T123000Z
+DTEND:20260228T133000Z
+SUMMARY:Easy Run: 4 miles @ 9:20/mi
+DESCRIPTION:Week 8 - Saturday (TAPER)\n4 miles @ 9:20/mile\nReducing volume\nMaintaining some quality
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week8-sunday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260301T123000Z
+DTEND:20260301T133000Z
+SUMMARY:Long Run: 8 miles @ 10:15/mi
+DESCRIPTION:Week 8 - Sunday (TAPER)\n8 miles @ 10:15/mile\nTaper long run\nEasier effort\nMaintaining endurance
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week9-monday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260302T123000Z
+DTEND:20260302T133000Z
+SUMMARY:Rest or Light Cross-Training (20 min)
+DESCRIPTION:Week 9 - Monday (RACE WEEK!)\n20 min very light activity OR complete rest\nStay loose\nRace is in 7 days!
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week9-tuesday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260303T123000Z
+DTEND:20260303T133000Z
+SUMMARY:Easy Run: 3 miles easy
+DESCRIPTION:Week 9 - Tuesday (RACE WEEK!)\n3 miles @ very easy pace\n10:30/mile\nStay loose\nRace is in 6 days!
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week9-wednesday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260304T123000Z
+DTEND:20260304T133000Z
+SUMMARY:Sharpening: 6 x 400m @ 9:00/mi
+DESCRIPTION:Week 9 - Wednesday (RACE WEEK!)\nFinal speed work\n6 x 400m @ 9:00/mile (race pace)\nNot too hard - just staying sharp\nYou're ready!\nRace is in 5 days!
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week9-thursday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260305T123000Z
+DTEND:20260305T133000Z
+SUMMARY:REST DAY
+DESCRIPTION:Week 9 - Thursday (RACE WEEK!)\nComplete rest\nStretch gently\nIce Achilles\nRace is in 4 days!
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week9-friday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260306T123000Z
+DTEND:20260306T133000Z
+SUMMARY:REST DAY - Pack Race Gear
+DESCRIPTION:Week 9 - Friday (RACE WEEK!)\nCOMPLETE REST\n\nTO DO TODAY:\n☐ Lay out race outfit (nothing new!)\n☐ Pin race bib to shirt\n☐ Prepare race nutrition (gels/chews)\n☐ Set 2 alarms for 6:00 AM\n☐ Carb-load dinner tonight\n☐ Bed by 9:30 PM\n\nRACE IN 3 DAYS!
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week9-saturday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260307T123000Z
+DTEND:20260307T133000Z
+SUMMARY:Shakeout: 2 miles easy + strides
+DESCRIPTION:Week 9 - Saturday (DAY BEFORE RACE!)\nFinal prep run\n2 miles @ 11:00/mile EASY\n4-6 x 100m strides (smooth, not hard)\n\nTest all race gear!\nStay relaxed\n\nTONIGHT:\n☐ Carb dinner\n☐ Hydrate well\n☐ In bed by 9:30 PM\n☐ Visualize race\n\nRACE TOMORROW MORNING!
+END:VEVENT
+
+BEGIN:VEVENT
+UID:week9-sunday@training
+DTSTAMP:20260103T123000Z
+DTSTART:20260308T123000Z
+DTEND:20260308T133000Z
+SUMMARY:🏃‍♂️🏁 RACE DAY: E. Murray Todd Half Marathon
+DESCRIPTION:TARGET: Sub 2:00:00\n\nTIMELINE:\n• 6:00 AM - Wake up\n• 6:15 AM - Light breakfast\n• 6:45 AM - Leave for Brookdale\n• 7:15 AM - Arrive, packet pickup\n• 7:45 AM - Dynamic warm-up\n• 8:20 AM - At starting line\n• 8:30 AM - RACE START!\n\nPACING STRATEGY:\n• Miles 1-3: 9:15-9:20/mi (settle in)\n• Miles 4-6: 9:05-9:10/mi (rhythm)\n• Miles 7-10: 9:00-9:05/mi (work)\n• Miles 11-13.1: 8:50-9:00/mi (finish strong!)\n\nWATER STATIONS: 3, 6, 8, 10\n\nYOU'VE GOT THIS! 💪\nAll the training is done!\nTrust your preparation!\nRun YOUR race!
+END:VEVENT
+
+END:VCALENDAR
