@@ -64,18 +64,26 @@ h3 {
 }
 
 /* Project Cards */
+.project-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    margin-bottom: 20px;
+}
+
 .project-card {
     background: #f8fafc;
     border: 2px solid #e2e8f0;
     border-radius: 8px;
     padding: 25px;
-    margin-bottom: 20px;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    cursor: pointer;
 }
 
-.project-card:hover {
+.project-card-link:hover .project-card {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: #2563eb;
 }
 
 .project-card p {
@@ -88,6 +96,16 @@ h3 {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
+    align-items: center;
+}
+
+.button-text {
+    display: inline-block;
+    background: #10b981;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
 }
 
 .button {
