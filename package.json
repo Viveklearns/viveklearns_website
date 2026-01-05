@@ -1,0 +1,7 @@
+{
+  "name": "viveklearns-website",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Personal website for viveklearns.com with half marathon training tracker",
+  "private": true
+}
