@@ -230,9 +230,12 @@
         </header>
 
         <main class="tracker-container">
-            <div class="strava-note">
-                📊 <strong>Ready for Strava Integration:</strong> Actual distance, pace, and time will auto-populate from Strava<br>
-                ⚠️ <strong>Note:</strong> Currently saves to your browser only. For online saving across devices, Strava integration or cloud database coming soon!
+            <div class="strava-note" id="stravaStatus">
+                📊 <strong>Strava Integration:</strong>
+                <button onclick="syncWithStrava()" class="add-run-btn" style="margin-left: 10px; padding: 8px 16px; font-size: 0.9rem;">
+                    🔄 Sync with Strava
+                </button>
+                <span id="syncStatus" style="margin-left: 10px;"></span>
             </div>
 
             <div class="stats-summary">
@@ -495,6 +498,71 @@
             document.getElementById('totalMiles').textContent = totalMiles.toFixed(1);
             document.getElementById('avgPace').textContent = avgPaceStr;
             document.getElementById('daysUntilRace').textContent = daysUntil > 0 ? daysUntil : 'Race Day!';
+        }
+
+        // Strava Integration
+        async function syncWithStrava() {
+            const statusEl = document.getElementById('syncStatus');
+            statusEl.textContent = '⏳ Syncing...';
+            statusEl.style.color = '#f59e0b';
+
+            try {
+                // Call Vercel serverless function to get Strava activities
+                const response = await fetch('/api/strava-activities');
+
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const stravaRuns = data.runs;
+
+                if (!stravaRuns || stravaRuns.length === 0) {
+                    statusEl.textContent = '⚠️ No Strava runs found';
+                    statusEl.style.color = '#f59e0b';
+                    return;
+                }
+
+                // Match Strava runs to training plan dates
+                let matchedCount = 0;
+                stravaRuns.forEach(stravaRun => {
+                    const matchingPlanRun = runs.find(r => r.date === stravaRun.date);
+
+                    if (matchingPlanRun) {
+                        matchingPlanRun.actualDistance = parseFloat(stravaRun.distance);
+                        matchingPlanRun.actualPace = stravaRun.pace;
+                        matchingPlanRun.duration = formatDuration(stravaRun.movingTime);
+                        matchedCount++;
+                    }
+                });
+
+                // Save updated runs
+                localStorage.setItem('trainingRuns', JSON.stringify(runs));
+
+                // Re-render table and stats
+                renderTable();
+                updateStats();
+
+                statusEl.textContent = `✅ Synced ${matchedCount} runs from Strava!`;
+                statusEl.style.color = '#10b981';
+
+            } catch (error) {
+                console.error('Strava sync error:', error);
+                statusEl.textContent = `❌ Sync failed: ${error.message}`;
+                statusEl.style.color = '#ef4444';
+            }
+        }
+
+        // Helper function to format duration from seconds to HH:MM:SS
+        function formatDuration(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+
+            if (hours > 0) {
+                return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+            return `${minutes}:${secs.toString().padStart(2, '0')}`;
         }
 
         // Initial render
