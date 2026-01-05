@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Tracker - Table View</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .tracker-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .tracker-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .add-run-btn {
+            background: #2563eb;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .add-run-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .strava-note {
+            background: #fc4c02;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1200px;
+        }
+
+        thead {
+            background: #2563eb;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        th {
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #e2e8f0;
+            transition: background 0.2s;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        tbody tr.rest-day {
+            background: #f1f5f9;
+            opacity: 0.8;
+        }
+
+        tbody tr.race-day {
+            background: #fef3c7;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 8px;
+            font-size: 0.9rem;
+        }
+
+        .date-cell {
+            font-weight: 600;
+            color: #1e40af;
+            white-space: nowrap;
+        }
+
+        .week-cell {
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .type-cell {
+            font-weight: 500;
+        }
+
+        .type-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-easy {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-speed {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-tempo {
+            background: #fce7f3;
+            color: #9f1239;
+        }
+
+        .badge-long {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-hill {
+            background: #fed7aa;
+            color: #7c2d12;
+        }
+
+        .badge-rest {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .badge-cross {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .badge-race {
+            background: #fbbf24;
+            color: #78350f;
+        }
+
+        .editable-cell {
+            cursor: text;
+            padding: 4px;
+            min-height: 20px;
+        }
+
+        .editable-cell:hover {
+            background: #f0f9ff;
+            outline: 1px solid #bfdbfe;
+        }
+
+        .editable-cell:focus {
+            outline: 2px solid #2563eb;
+            background: white;
+        }
+
+        .rating-cell {
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .rating-good {
+            color: #059669;
+        }
+
+        .rating-medium {
+            color: #d97706;
+        }
+
+        .rating-bad {
+            color: #dc2626;
+        }
+
+        .stats-summary {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            margin: 0 0 5px 0;
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .stat-item .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .stats-summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Training Tracker</h1>
+            <p class="tagline">9-Week Half Marathon Training Plan</p>
+        </header>
+
+        <main class="tracker-container">
+            <div class="strava-note">
+                📊 <strong>Ready for Strava Integration:</strong> Actual distance, pace, and time will auto-populate from Strava<br>
+                ⚠️ <strong>Note:</strong> Currently saves to your browser only. For online saving across devices, Strava integration or cloud database coming soon!
+            </div>
+
+            <div class="stats-summary">
+                <div class="stat-item">
+                    <h3>Completed Runs</h3>
+                    <div class="value" id="completedRuns">0 / 45</div>
+                </div>
+                <div class="stat-item">
+                    <h3>Total Miles Logged</h3>
+                    <div class="value" id="totalMiles">0.0</div>
+                </div>
+                <div class="stat-item">
+                    <h3>Avg Pace</h3>
+                    <div class="value" id="avgPace">-:--</div>
+                </div>
+                <div class="stat-item">
+                    <h3>Days Until Race</h3>
+                    <div class="value" id="daysUntilRace">-</div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Week</th>
+                            <th>Date</th>
+                            <th>Day</th>
+                            <th>Workout Type</th>
+                            <th>Planned Workout Details</th>
+                            <th>Planned Distance</th>
+                            <th>Planned Pace</th>
+                            <th>Actual Distance</th>
+                            <th>Actual Pace</th>
+                            <th>Time</th>
+                            <th>How I Felt (1-10)</th>
+                            <th>Achilles (1-10)</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Training plan data (9 weeks, Jan 5 - March 8, 2026)
+        const trainingPlan = [
+            // Week 1 (Jan 5-11)
+            { week: 1, date: '2026-01-05', type: 'Cross-Training', details: 'Cross-Training or Rest (30-45 min)', plannedDistance: 0, plannedPace: '' },
+            { week: 1, date: '2026-01-06', type: 'Easy Run', details: 'Easy Run: 3 miles', plannedDistance: 3, plannedPace: '10:30-11:00' },
+            { week: 1, date: '2026-01-07', type: 'Speed Work', details: '6 x 400m @ 8:30/mi, 400m jog recovery', plannedDistance: 4, plannedPace: '8:30' },
+            { week: 1, date: '2026-01-08', type: 'Easy Run', details: 'Easy Run: 3 miles', plannedDistance: 3, plannedPace: '10:30-11:00' },
+            { week: 1, date: '2026-01-09', type: 'Rest Day', details: 'Complete Rest - Stretch & Ice Achilles', plannedDistance: 0, plannedPace: '' },
+            { week: 1, date: '2026-01-10', type: 'Easy Run', details: 'Easy Run: 3 miles @ easy pace', plannedDistance: 3, plannedPace: '10:30' },
+            { week: 1, date: '2026-01-11', type: 'Long Run', details: 'Long Run: 6 miles @ 10:15/mi', plannedDistance: 6, plannedPace: '10:15' },
+
+            // Week 2 (Jan 12-18)
+            { week: 2, date: '2026-01-12', type: 'Cross-Training', details: 'Cross-Training or Rest (30-45 min)', plannedDistance: 0, plannedPace: '' },
+            { week: 2, date: '2026-01-13', type: 'Easy Run', details: 'Easy Run: 3 miles', plannedDistance: 3, plannedPace: '10:30-11:00' },
+            { week: 2, date: '2026-01-14', type: 'Tempo Run', details: 'Tempo - 1 mi easy, 3 mi @ 9:10/mi, 1 mi easy', plannedDistance: 5, plannedPace: '9:10' },
+            { week: 2, date: '2026-01-15', type: 'Easy Run', details: 'Easy Run: 3 miles', plannedDistance: 3, plannedPace: '10:30-11:00' },
+            { week: 2, date: '2026-01-16', type: 'Rest Day', details: 'Complete Rest - Stretch & Ice Achilles', plannedDistance: 0, plannedPace: '' },
+            { week: 2, date: '2026-01-17', type: 'Easy Run', details: 'Pace Run: 4 miles @ 9:30/mi (race pace practice)', plannedDistance: 4, plannedPace: '9:30' },
+            { week: 2, date: '2026-01-18', type: 'Long Run', details: 'Long Run: 7 miles @ 10:15/mi', plannedDistance: 7, plannedPace: '10:15' },
+
+            // Week 3 (Jan 19-25)
+            { week: 3, date: '2026-01-19', type: 'Cross-Training', details: 'Cross-Training or Rest (30-45 min)', plannedDistance: 0, plannedPace: '' },
+            { week: 3, date: '2026-01-20', type: 'Easy Run', details: 'Easy Run: 4 miles', plannedDistance: 4, plannedPace: '10:30-11:00' },
+            { week: 3, date: '2026-01-21', type: 'Speed Work', details: '8 x 400m @ 8:30/mi, 400m jog recovery', plannedDistance: 5, plannedPace: '8:30' },
+            { week: 3, date: '2026-01-22', type: 'Easy Run', details: 'Easy Run: 4 miles', plannedDistance: 4, plannedPace: '10:30-11:00' },
+            { week: 3, date: '2026-01-23', type: 'Rest Day', details: 'Complete Rest - Stretch & Ice Achilles', plannedDistance: 0, plannedPace: '' },
+            { week: 3, date: '2026-01-24', type: 'Easy Run', details: 'Easy Run: 4 miles', plannedDistance: 4, plannedPace: '10:30' },
+            { week: 3, date: '2026-01-25', type: 'Long Run', details: 'Long Run: 8 miles @ 10:00/mi', plannedDistance: 8, plannedPace: '10:00' },
+
+            // Week 4 (Jan 26-Feb 1) - RECOVERY WEEK
+            { week: 4, date: '2026-01-26', type: 'Cross-Training', details: 'Cross-Training or Rest (30-45 min)', plannedDistance: 0, plannedPace: '' },
+            { week: 4, date: '2026-01-27', type: 'Easy Run', details: 'Easy Run: 3 miles', plannedDistance: 3, plannedPace: '10:30-11:00' },
+            { week: 4, date: '2026-01-28', type: 'Speed Work', details: '5 x 400m @ 8:40/mi (easier effort)', plannedDistance: 3, plannedPace: '8:40' },
+            { week: 4, date: '2026-01-29', type: 'Easy Run', details: 'Easy Run: 3 miles', plannedDistance: 3, plannedPace: '10:30-11:00' },
+            { week: 4, date: '2026-01-30', type: 'Rest Day', details: 'Complete Rest - Recovery Week', plannedDistance: 0, plannedPace: '' },
+            { week: 4, date: '2026-01-31', type: 'Easy Run', details: 'Easy Run: 3 miles', plannedDistance: 3, plannedPace: '10:30' },
+            { week: 4, date: '2026-02-01', type: 'Long Run', details: 'Long Run: 6 miles @ 10:30/mi (back off volume)', plannedDistance: 6, plannedPace: '10:30' },
+
+            // Week 5 (Feb 2-8)
+            { week: 5, date: '2026-02-02', type: 'Cross-Training', details: 'Cross-Training or Rest (30-45 min)', plannedDistance: 0, plannedPace: '' },
+            { week: 5, date: '2026-02-03', type: 'Easy Run', details: 'Easy Run: 4 miles', plannedDistance: 4, plannedPace: '10:30-11:00' },
+            { week: 5, date: '2026-02-04', type: 'Hill Repeats', details: 'Hill Repeats - 8 x 2 min hard uphill, jog down', plannedDistance: 5, plannedPace: '' },
+            { week: 5, date: '2026-02-05', type: 'Easy Run', details: 'Easy Run: 4 miles', plannedDistance: 4, plannedPace: '10:30-11:00' },
+            { week: 5, date: '2026-02-06', type: 'Rest Day', details: 'Complete Rest - Stretch & Ice Achilles', plannedDistance: 0, plannedPace: '' },
+            { week: 5, date: '2026-02-07', type: 'Easy Run', details: 'Pace Run: 5 miles @ 9:20/mi (race pace sections)', plannedDistance: 5, plannedPace: '9:20' },
+            { week: 5, date: '2026-02-08', type: 'Long Run', details: 'Long Run: 9 miles @ 10:00/mi', plannedDistance: 9, plannedPace: '10:00' },
+
+            // Week 6 (Feb 9-15) - PEAK BUILD
+            { week: 6, date: '2026-02-09', type: 'Cross-Training', details: 'Cross-Training or Rest (30-45 min)', plannedDistance: 0, plannedPace: '' },
+            { week: 6, date: '2026-02-10', type: 'Easy Run', details: 'Easy Run: 4 miles', plannedDistance: 4, plannedPace: '10:30-11:00' },
+            { week: 6, date: '2026-02-11', type: 'Tempo Run', details: 'Tempo - 1 mi easy, 4 mi @ 9:05/mi, 1 mi easy', plannedDistance: 6, plannedPace: '9:05' },
+            { week: 6, date: '2026-02-12', type: 'Easy Run', details: 'Easy Run: 4 miles', plannedDistance: 4, plannedPace: '10:30-11:00' },
+            { week: 6, date: '2026-02-13', type: 'Rest Day', details: 'Complete Rest - Stretch & Ice Achilles', plannedDistance: 0, plannedPace: '' },
+            { week: 6, date: '2026-02-14', type: 'Easy Run', details: 'Easy Run: 4 miles', plannedDistance: 4, plannedPace: '10:30' },
+            { week: 6, date: '2026-02-15', type: 'Long Run', details: 'Long Run: 10 miles @ 10:00/mi', plannedDistance: 10, plannedPace: '10:00' },
+
+            // Week 7 (Feb 16-22) - PEAK WEEK
+            { week: 7, date: '2026-02-16', type: 'Cross-Training', details: 'Cross-Training or Rest (30-45 min)', plannedDistance: 0, plannedPace: '' },
+            { week: 7, date: '2026-02-17', type: 'Easy Run', details: 'Easy Run: 4 miles', plannedDistance: 4, plannedPace: '10:30-11:00' },
+            { week: 7, date: '2026-02-18', type: 'Speed Work', details: '5 x 800m @ 8:35/mi, 400m jog recovery', plannedDistance: 5, plannedPace: '8:35' },
+            { week: 7, date: '2026-02-19', type: 'Easy Run', details: 'Easy Run: 4 miles', plannedDistance: 4, plannedPace: '10:30-11:00' },
+            { week: 7, date: '2026-02-20', type: 'Rest Day', details: 'Complete Rest - Stretch & Ice Achilles', plannedDistance: 0, plannedPace: '' },
+            { week: 7, date: '2026-02-21', type: 'Easy Run', details: 'Pace Run: 6 miles @ 9:15/mi (simulate race effort)', plannedDistance: 6, plannedPace: '9:15' },
+            { week: 7, date: '2026-02-22', type: 'Long Run', details: 'Long Run: 12 miles @ 10:00/mi (PEAK)', plannedDistance: 12, plannedPace: '10:00' },
+
+            // Week 8 (Feb 23-Mar 1) - TAPER BEGINS
+            { week: 8, date: '2026-02-23', type: 'Cross-Training', details: 'Cross-Training or Rest (30-45 min)', plannedDistance: 0, plannedPace: '' },
+            { week: 8, date: '2026-02-24', type: 'Easy Run', details: 'Easy Run: 4 miles', plannedDistance: 4, plannedPace: '10:30-11:00' },
+            { week: 8, date: '2026-02-25', type: 'Tempo Run', details: 'Tempo - 1 mi easy, 4 mi @ 9:00/mi, 1 mi easy', plannedDistance: 6, plannedPace: '9:00' },
+            { week: 8, date: '2026-02-26', type: 'Easy Run', details: 'Easy Run: 3 miles', plannedDistance: 3, plannedPace: '10:30-11:00' },
+            { week: 8, date: '2026-02-27', type: 'Rest Day', details: 'Complete Rest - Taper Week', plannedDistance: 0, plannedPace: '' },
+            { week: 8, date: '2026-02-28', type: 'Easy Run', details: 'Pace Run: 4 miles @ 9:20/mi', plannedDistance: 4, plannedPace: '9:20' },
+            { week: 8, date: '2026-03-01', type: 'Long Run', details: 'Long Run: 8 miles @ 10:15/mi (reduce volume)', plannedDistance: 8, plannedPace: '10:15' },
+
+            // Week 9 (Mar 2-8) - RACE WEEK
+            { week: 9, date: '2026-03-02', type: 'Rest Day', details: 'Rest or Light Cross-Training (20 min)', plannedDistance: 0, plannedPace: '' },
+            { week: 9, date: '2026-03-03', type: 'Easy Run', details: 'Easy Run: 3 miles easy', plannedDistance: 3, plannedPace: '10:30' },
+            { week: 9, date: '2026-03-04', type: 'Speed Work', details: 'Sharpening: 6 x 400m @ 9:00/mi (race pace)', plannedDistance: 3, plannedPace: '9:00' },
+            { week: 9, date: '2026-03-05', type: 'Rest Day', details: 'Complete Rest', plannedDistance: 0, plannedPace: '' },
+            { week: 9, date: '2026-03-06', type: 'Rest Day', details: 'Complete Rest - Pack Race Gear', plannedDistance: 0, plannedPace: '' },
+            { week: 9, date: '2026-03-07', type: 'Easy Run', details: 'Shakeout: 2 miles easy + 4-6 x 100m strides', plannedDistance: 2, plannedPace: '11:00' },
+            { week: 9, date: '2026-03-08', type: 'Race Day', details: '🏁 E. Murray Todd Half Marathon - Target: Sub 2:00:00', plannedDistance: 13.1, plannedPace: '9:09' }
+        ];
+
+        // Initialize with training plan data
+        let runs = JSON.parse(localStorage.getItem('trainingRuns') || '[]');
+
+        // If no data exists, populate with training plan
+        if (runs.length === 0) {
+            runs = trainingPlan.map(plan => ({
+                id: new Date(plan.date).getTime(),
+                week: plan.week,
+                date: plan.date,
+                type: plan.type,
+                details: plan.details,
+                plannedDistance: plan.plannedDistance,
+                plannedPace: plan.plannedPace,
+                actualDistance: null,
+                actualPace: null,
+                duration: null,
+                feeling: null,
+                achilles: null,
+                notes: ''
+            }));
+            localStorage.setItem('trainingRuns', JSON.stringify(runs));
+        }
+
+        function updateCell(id, field, value) {
+            runs = runs.map(run => {
+                if (run.id === id) {
+                    if (field === 'actualDistance') {
+                        run[field] = value ? parseFloat(value) : null;
+                    } else if (field === 'feeling' || field === 'achilles') {
+                        run[field] = value ? parseInt(value) : null;
+                    } else {
+                        run[field] = value || null;
+                    }
+                }
+                return run;
+            });
+            localStorage.setItem('trainingRuns', JSON.stringify(runs));
+            updateStats();
+        }
+
+        function getTypeBadgeClass(type) {
+            const badges = {
+                'Easy Run': 'badge-easy',
+                'Speed Work': 'badge-speed',
+                'Tempo Run': 'badge-tempo',
+                'Long Run': 'badge-long',
+                'Hill Repeats': 'badge-hill',
+                'Rest Day': 'badge-rest',
+                'Cross-Training': 'badge-cross',
+                'Race Day': 'badge-race'
+            };
+            return badges[type] || 'badge-easy';
+        }
+
+        function getRatingClass(value) {
+            if (!value) return '';
+            if (value >= 7) return 'rating-good';
+            if (value >= 4) return 'rating-medium';
+            return 'rating-bad';
+        }
+
+        function getPainClass(value) {
+            if (!value) return '';
+            if (value <= 3) return 'rating-good';
+            if (value <= 6) return 'rating-medium';
+            return 'rating-bad';
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+
+            tbody.innerHTML = runs.map(run => {
+                const dateObj = new Date(run.date);
+                const dayName = dateObj.toLocaleDateString('en-US', { weekday: 'short' });
+                const dateStr = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+                let rowClass = '';
+                if (run.type === 'Rest Day') rowClass = 'rest-day';
+                if (run.type === 'Race Day') rowClass = 'race-day';
+
+                return `
+                    <tr class="${rowClass}">
+                        <td class="week-cell">Week ${run.week}</td>
+                        <td class="date-cell">${dateStr}</td>
+                        <td>${dayName}</td>
+                        <td class="type-cell">
+                            <span class="type-badge ${getTypeBadgeClass(run.type)}">${run.type}</span>
+                        </td>
+                        <td style="max-width: 250px; font-size: 0.85rem;">${run.details || '-'}</td>
+                        <td>${run.plannedDistance > 0 ? run.plannedDistance : '-'}</td>
+                        <td>${run.plannedPace || '-'}</td>
+                        <td contenteditable="true" class="editable-cell" onblur="updateCell(${run.id}, 'actualDistance', this.textContent.trim())">${run.actualDistance || ''}</td>
+                        <td contenteditable="true" class="editable-cell" onblur="updateCell(${run.id}, 'actualPace', this.textContent.trim())">${run.actualPace || ''}</td>
+                        <td contenteditable="true" class="editable-cell" onblur="updateCell(${run.id}, 'duration', this.textContent.trim())">${run.duration || ''}</td>
+                        <td contenteditable="true" class="editable-cell rating-cell ${getRatingClass(run.feeling)}" onblur="updateCell(${run.id}, 'feeling', this.textContent.trim())">${run.feeling || ''}</td>
+                        <td contenteditable="true" class="editable-cell rating-cell ${getPainClass(run.achilles)}" onblur="updateCell(${run.id}, 'achilles', this.textContent.trim())">${run.achilles || ''}</td>
+                        <td contenteditable="true" class="editable-cell" onblur="updateCell(${run.id}, 'notes', this.textContent.trim())" style="max-width: 200px;">${run.notes || ''}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function updateStats() {
+            const completedRuns = runs.filter(r => r.actualDistance > 0).length;
+            const totalPlannedRuns = runs.filter(r => r.type !== 'Rest Day' && r.type !== 'Cross-Training').length;
+            const totalMiles = runs.reduce((sum, r) => sum + (r.actualDistance || 0), 0);
+
+            const pacesInSeconds = runs
+                .filter(r => r.actualPace && r.actualPace.includes(':'))
+                .map(r => {
+                    const [min, sec] = r.actualPace.split(':').map(Number);
+                    return min * 60 + (sec || 0);
+                });
+
+            let avgPaceStr = '-:--';
+            if (pacesInSeconds.length > 0) {
+                const avgSeconds = pacesInSeconds.reduce((a, b) => a + b, 0) / pacesInSeconds.length;
+                const min = Math.floor(avgSeconds / 60);
+                const sec = Math.floor(avgSeconds % 60);
+                avgPaceStr = `${min}:${sec.toString().padStart(2, '0')}`;
+            }
+
+            // Calculate days until race
+            const raceDate = new Date('2026-03-08');
+            const today = new Date();
+            const daysUntil = Math.ceil((raceDate - today) / (1000 * 60 * 60 * 24));
+
+            document.getElementById('completedRuns').textContent = `${completedRuns} / ${totalPlannedRuns}`;
+            document.getElementById('totalMiles').textContent = totalMiles.toFixed(1);
+            document.getElementById('avgPace').textContent = avgPaceStr;
+            document.getElementById('daysUntilRace').textContent = daysUntil > 0 ? daysUntil : 'Race Day!';
+        }
+
+        // Initial render
+        renderTable();
+        updateStats();
+    </script>
+</body>
+</html>
