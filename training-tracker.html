@@ -497,6 +497,95 @@
             document.getElementById('daysUntilRace').textContent = daysUntil > 0 ? daysUntil : 'Race Day!';
         }
 
+        // Strava Integration
+        async function syncWithStrava() {
+            const statusEl = document.getElementById('syncStatus');
+            statusEl.textContent = '⏳ Syncing...';
+            statusEl.style.color = '#f59e0b';
+
+            try {
+                // Call Vercel serverless function to get Strava activities
+                const response = await fetch('/api/strava-activities');
+
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const stravaRuns = data.runs;
+
+                if (!stravaRuns || stravaRuns.length === 0) {
+                    statusEl.textContent = '⚠️ No Strava runs found for training period';
+                    statusEl.style.color = '#f59e0b';
+                    return;
+                }
+
+                console.log(`Found ${stravaRuns.length} Strava runs`);
+
+                // Match Strava runs to training plan dates
+                let matchedCount = 0;
+                let multipleRunsCount = 0;
+
+                stravaRuns.forEach(stravaRun => {
+                    // Find all runs on the same date
+                    const matchingPlanRuns = runs.filter(r => r.date === stravaRun.date);
+
+                    if (matchingPlanRuns.length > 0) {
+                        // LOGIC: If multiple training plan entries on same date, update the first non-rest-day one
+                        // This handles cases where you have multiple workouts scheduled
+                        const targetRun = matchingPlanRuns.find(r => r.type !== 'Rest Day' && r.type !== 'Cross-Training') || matchingPlanRuns[0];
+
+                        // Only update if not already populated (preserves manual edits)
+                        if (!targetRun.actualDistance) {
+                            targetRun.actualDistance = parseFloat(stravaRun.distance);
+                            targetRun.actualPace = stravaRun.pace;
+                            targetRun.duration = formatDuration(stravaRun.movingTime);
+                            matchedCount++;
+                        }
+
+                        if (matchingPlanRuns.length > 1) {
+                            multipleRunsCount++;
+                        }
+                    }
+                    // LOGIC: If Strava run date doesn't match any training plan date, it's ignored
+                    // This handles extra runs you did outside the plan
+                });
+
+                // Save updated runs
+                localStorage.setItem('trainingRuns', JSON.stringify(runs));
+
+                // Re-render table and stats
+                renderTable();
+                updateStats();
+
+                let message = `✅ Synced ${matchedCount} runs from Strava!`;
+                if (multipleRunsCount > 0) {
+                    message += ` (${multipleRunsCount} days had multiple planned workouts)`;
+                }
+                statusEl.textContent = message;
+                statusEl.style.color = '#10b981';
+
+                console.log('Sync complete:', { matchedCount, multipleRunsCount, totalStravaRuns: stravaRuns.length });
+
+            } catch (error) {
+                console.error('Strava sync error:', error);
+                statusEl.textContent = `❌ Sync failed: ${error.message}`;
+                statusEl.style.color = '#ef4444';
+            }
+        }
+
+        // Helper function to format duration from seconds to HH:MM:SS
+        function formatDuration(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+
+            if (hours > 0) {
+                return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+            return `${minutes}:${secs.toString().padStart(2, '0')}`;
+        }
+
         // Initial render
         renderTable();
         updateStats();
