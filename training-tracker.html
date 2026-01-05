@@ -230,12 +230,9 @@
         </header>
 
         <main class="tracker-container">
-            <div class="strava-note" id="stravaStatus">
-                📊 <strong>Strava Integration:</strong>
-                <button onclick="syncWithStrava()" class="add-run-btn" style="margin-left: 10px; padding: 8px 16px; font-size: 0.9rem;">
-                    🔄 Sync with Strava
-                </button>
-                <span id="syncStatus" style="margin-left: 10px;"></span>
+            <div class="strava-note">
+                📊 <strong>Ready for Strava Integration:</strong> Actual distance, pace, and time will auto-populate from Strava<br>
+                ⚠️ <strong>Note:</strong> Currently saves to your browser only. For online saving across devices, Strava integration or cloud database coming soon!
             </div>
 
             <div class="stats-summary">
@@ -518,22 +515,40 @@
                 const stravaRuns = data.runs;
 
                 if (!stravaRuns || stravaRuns.length === 0) {
-                    statusEl.textContent = '⚠️ No Strava runs found';
+                    statusEl.textContent = '⚠️ No Strava runs found for training period';
                     statusEl.style.color = '#f59e0b';
                     return;
                 }
 
+                console.log(`Found ${stravaRuns.length} Strava runs`);
+
                 // Match Strava runs to training plan dates
                 let matchedCount = 0;
-                stravaRuns.forEach(stravaRun => {
-                    const matchingPlanRun = runs.find(r => r.date === stravaRun.date);
+                let multipleRunsCount = 0;
 
-                    if (matchingPlanRun) {
-                        matchingPlanRun.actualDistance = parseFloat(stravaRun.distance);
-                        matchingPlanRun.actualPace = stravaRun.pace;
-                        matchingPlanRun.duration = formatDuration(stravaRun.movingTime);
-                        matchedCount++;
+                stravaRuns.forEach(stravaRun => {
+                    // Find all runs on the same date
+                    const matchingPlanRuns = runs.filter(r => r.date === stravaRun.date);
+
+                    if (matchingPlanRuns.length > 0) {
+                        // LOGIC: If multiple training plan entries on same date, update the first non-rest-day one
+                        // This handles cases where you have multiple workouts scheduled
+                        const targetRun = matchingPlanRuns.find(r => r.type !== 'Rest Day' && r.type !== 'Cross-Training') || matchingPlanRuns[0];
+
+                        // Only update if not already populated (preserves manual edits)
+                        if (!targetRun.actualDistance) {
+                            targetRun.actualDistance = parseFloat(stravaRun.distance);
+                            targetRun.actualPace = stravaRun.pace;
+                            targetRun.duration = formatDuration(stravaRun.movingTime);
+                            matchedCount++;
+                        }
+
+                        if (matchingPlanRuns.length > 1) {
+                            multipleRunsCount++;
+                        }
                     }
+                    // LOGIC: If Strava run date doesn't match any training plan date, it's ignored
+                    // This handles extra runs you did outside the plan
                 });
 
                 // Save updated runs
@@ -543,8 +558,14 @@
                 renderTable();
                 updateStats();
 
-                statusEl.textContent = `✅ Synced ${matchedCount} runs from Strava!`;
+                let message = `✅ Synced ${matchedCount} runs from Strava!`;
+                if (multipleRunsCount > 0) {
+                    message += ` (${multipleRunsCount} days had multiple planned workouts)`;
+                }
+                statusEl.textContent = message;
                 statusEl.style.color = '#10b981';
+
+                console.log('Sync complete:', { matchedCount, multipleRunsCount, totalStravaRuns: stravaRuns.length });
 
             } catch (error) {
                 console.error('Strava sync error:', error);
