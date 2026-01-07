@@ -1,4 +1,4 @@
-// Vercel Serverless Function to fetch Strava activities
+// Vercel Serverless Function to fetch Strava activities with automatic token refresh
 export default async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -9,10 +9,13 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  const ACCESS_TOKEN = process.env.STRAVA_ACCESS_TOKEN;
+  let accessToken = process.env.STRAVA_ACCESS_TOKEN;
+  const refreshToken = process.env.STRAVA_REFRESH_TOKEN;
+  const clientId = process.env.STRAVA_CLIENT_ID;
+  const clientSecret = process.env.STRAVA_CLIENT_SECRET;
 
-  if (!ACCESS_TOKEN) {
-    return res.status(500).json({ error: 'Strava access token not configured' });
+  if (!accessToken || !refreshToken || !clientId || !clientSecret) {
+    return res.status(500).json({ error: 'Strava credentials not configured' });
   }
 
   try {
@@ -20,14 +23,49 @@ export default async function handler(req, res) {
     // Get activities after Jan 1, 2026 (training start date)
     const after = Math.floor(new Date('2026-01-01').getTime() / 1000);
 
-    const response = await fetch(
+    let response = await fetch(
       `https://www.strava.com/api/v3/athlete/activities?after=${after}&per_page=100`,
       {
         headers: {
-          'Authorization': `Bearer ${ACCESS_TOKEN}`
+          'Authorization': `Bearer ${accessToken}`
         }
       }
     );
+
+    // If 401, token expired - refresh it automatically
+    if (response.status === 401) {
+      console.log('Token expired, refreshing...');
+
+      const tokenResponse = await fetch('https://www.strava.com/oauth/token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          client_id: clientId,
+          client_secret: clientSecret,
+          grant_type: 'refresh_token',
+          refresh_token: refreshToken
+        })
+      });
+
+      if (!tokenResponse.ok) {
+        throw new Error('Failed to refresh token');
+      }
+
+      const tokenData = await tokenResponse.json();
+      accessToken = tokenData.access_token;
+
+      console.log('Token refreshed successfully. NOTE: Update STRAVA_ACCESS_TOKEN in Vercel to:', accessToken);
+
+      // Retry the request with new token
+      response = await fetch(
+        `https://www.strava.com/api/v3/athlete/activities?after=${after}&per_page=100`,
+        {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`
+          }
+        }
+      );
+    }
 
     if (!response.ok) {
       throw new Error(`Strava API error: ${response.status}`);
