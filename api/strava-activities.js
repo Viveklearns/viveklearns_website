@@ -14,8 +14,25 @@ export default async function handler(req, res) {
   const clientId = process.env.STRAVA_CLIENT_ID;
   const clientSecret = process.env.STRAVA_CLIENT_SECRET;
 
+  // Debug logging
+  console.log('Environment variables check:', {
+    hasAccessToken: !!accessToken,
+    hasRefreshToken: !!refreshToken,
+    hasClientId: !!clientId,
+    hasClientSecret: !!clientSecret,
+    accessTokenPrefix: accessToken ? accessToken.substring(0, 10) : 'missing'
+  });
+
   if (!accessToken || !refreshToken || !clientId || !clientSecret) {
-    return res.status(500).json({ error: 'Strava credentials not configured' });
+    return res.status(500).json({
+      error: 'Strava credentials not configured',
+      missing: {
+        accessToken: !accessToken,
+        refreshToken: !refreshToken,
+        clientId: !clientId,
+        clientSecret: !clientSecret
+      }
+    });
   }
 
   try {
