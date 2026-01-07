@@ -34,13 +34,14 @@
             background: #1d4ed8;
         }
 
-        .strava-note {
-            background: #fc4c02;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 6px;
+        .strava-sync-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
             margin-bottom: 20px;
-            font-size: 0.9rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
         }
 
         .table-container {
@@ -230,9 +231,11 @@
         </header>
 
         <main class="tracker-container">
-            <div class="strava-note">
-                📊 <strong>Ready for Strava Integration:</strong> Actual distance, pace, and time will auto-populate from Strava<br>
-                ⚠️ <strong>Note:</strong> Currently saves to your browser only. For online saving across devices, Strava integration or cloud database coming soon!
+            <div class="strava-sync-section">
+                <button onclick="syncWithStrava()" class="add-run-btn" style="background: #fc4c02;">
+                    🔄 Sync with Strava
+                </button>
+                <span id="syncStatus" style="margin-left: 15px; font-weight: 600;"></span>
             </div>
 
             <div class="stats-summary">
