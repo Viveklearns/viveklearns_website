@@ -14,8 +14,25 @@ export default async function handler(req, res) {
   const clientId = process.env.STRAVA_CLIENT_ID;
   const clientSecret = process.env.STRAVA_CLIENT_SECRET;
 
+  // Debug logging
+  console.log('Environment variables check:', {
+    hasAccessToken: !!accessToken,
+    hasRefreshToken: !!refreshToken,
+    hasClientId: !!clientId,
+    hasClientSecret: !!clientSecret,
+    accessTokenPrefix: accessToken ? accessToken.substring(0, 10) : 'missing'
+  });
+
   if (!accessToken || !refreshToken || !clientId || !clientSecret) {
-    return res.status(500).json({ error: 'Strava credentials not configured' });
+    return res.status(500).json({
+      error: 'Strava credentials not configured',
+      missing: {
+        accessToken: !accessToken,
+        refreshToken: !refreshToken,
+        clientId: !clientId,
+        clientSecret: !clientSecret
+      }
+    });
   }
 
   try {
@@ -79,7 +96,7 @@ export default async function handler(req, res) {
       .map(activity => ({
         id: activity.id,
         name: activity.name,
-        date: activity.start_date.split('T')[0], // YYYY-MM-DD format
+        date: activity.start_date_local.split('T')[0], // YYYY-MM-DD format using local timezone
         distance: (activity.distance / 1609.34).toFixed(2), // meters to miles
         movingTime: activity.moving_time, // seconds
         pace: calculatePace(activity.distance, activity.moving_time),
