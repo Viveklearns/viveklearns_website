@@ -96,7 +96,7 @@ export default async function handler(req, res) {
       .map(activity => ({
         id: activity.id,
         name: activity.name,
-        date: activity.start_date.split('T')[0], // YYYY-MM-DD format
+        date: activity.start_date_local.split('T')[0], // YYYY-MM-DD format using local timezone
         distance: (activity.distance / 1609.34).toFixed(2), // meters to miles
         movingTime: activity.moving_time, // seconds
         pace: calculatePace(activity.distance, activity.moving_time),
