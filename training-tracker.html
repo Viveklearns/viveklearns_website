@@ -368,6 +368,16 @@
         ];
 
         // Initialize with training plan data
+        // Version control for training plan data
+        const TRAINING_PLAN_VERSION = '2.0'; // Update this when training plan dates change
+        const storedVersion = localStorage.getItem('trainingPlanVersion');
+
+        // Clear localStorage if version changed (fixes date mismatches)
+        if (storedVersion !== TRAINING_PLAN_VERSION) {
+            localStorage.removeItem('trainingRuns');
+            localStorage.setItem('trainingPlanVersion', TRAINING_PLAN_VERSION);
+        }
+
         let runs = JSON.parse(localStorage.getItem('trainingRuns') || '[]');
 
         // If no data exists, populate with training plan
