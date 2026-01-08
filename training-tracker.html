@@ -449,7 +449,9 @@
             const tbody = document.getElementById('tableBody');
 
             tbody.innerHTML = runs.map(run => {
-                const dateObj = new Date(run.date);
+                // Parse date as local time, not UTC (avoids timezone offset issues)
+                const [year, month, day] = run.date.split('-').map(Number);
+                const dateObj = new Date(year, month - 1, day);
                 const dayName = dateObj.toLocaleDateString('en-US', { weekday: 'short' });
                 const dateStr = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
