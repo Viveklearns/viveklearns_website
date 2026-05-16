@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mindful Pause</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1114;
+    --card: #16181d;
+    --text: #c8cad0;
+    --text-soft: #7a7e88;
+    --accent: #6b9e8a;
+    --accent-soft: rgba(107,158,138,0.12);
+    --border: rgba(255,255,255,0.05);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .atmosphere {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 30% 20%, rgba(107,158,138,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 75% 80%, rgba(90,120,160,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 460px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  header h1 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 2.4rem;
+    letter-spacing: 0.02em;
+    color: #e0e2e6;
+    margin-bottom: 8px;
+  }
+
+  header p {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Breathing circle */
+  .breath-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 48px;
+  }
+
+  .breath-ring {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    transition: box-shadow 0.4s;
+  }
+
+  .breath-ring.active {
+    animation: breathe 10s ease-in-out infinite;
+  }
+
+  .breath-ring::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border-radius: 50%;
+    border: 1px solid rgba(107,158,138,0.25);
+  }
+
+  .breath-label {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--accent);
+    transition: opacity 0.3s;
+  }
+
+  .breath-hint {
+    margin-top: 14px;
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    letter-spacing: 0.04em;
+  }
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(107,158,138,0); }
+    5% { box-shadow: 0 0 20px 2px rgba(107,158,138,0.1); }
+    40% { transform: scale(1.18); box-shadow: 0 0 40px 6px rgba(107,158,138,0.12); }
+    55% { transform: scale(1.18); }
+    95% { transform: scale(1); box-shadow: 0 0 0 0 rgba(107,158,138,0); }
+  }
+
+  /* Steps */
+  .steps {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .step {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 22px 22px 22px;
+    position: relative;
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .step.done {
+    border-color: rgba(107,158,138,0.25);
+    background: rgba(107,158,138,0.04);
+  }
+
+  .step-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .step-num {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--text-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: var(--text-soft);
+    transition: all 0.3s;
+    margin-top: 1px;
+  }
+
+  .step.done .step-num {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .step-title {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #d4d6da;
+    line-height: 1.35;
+  }
+
+  .step-body {
+    margin-top: 14px;
+    padding-left: 44px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--text-soft);
+  }
+
+  .step-body em {
+    color: var(--text);
+    font-style: italic;
+    font-family: var(--serif);
+    font-size: 1rem;
+  }
+
+  .step-body .cue {
+    display: block;
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: var(--accent-soft);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    color: var(--accent);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* Closing */
+  .closing {
+    margin-top: 48px;
+    text-align: center;
+    padding: 28px 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .closing p {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+  }
+
+  .closing .remind {
+    margin-top: 16px;
+    font-family: var(--sans);
+    font-style: normal;
+    font-size: 0.8rem;
+    color: rgba(122,126,136,0.6);
+    letter-spacing: 0.04em;
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .container { padding: 32px 18px 60px; }
+    header h1 { font-size: 2rem; }
+    .breath-ring { width: 120px; height: 120px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="atmosphere"></div>
+
+<div class="container">
+  <header>
+    <h1>Mindful Pause</h1>
+    <p>A script for when the urge arrives</p>
+  </header>
+
+  <div class="breath-section">
+    <div class="breath-ring" id="breathRing" onclick="toggleBreath()">
+      <span class="breath-label" id="breathLabel">begin</span>
+    </div>
+    <div class="breath-hint">Tap to start a breathing guide &middot; 4 in, 6 out</div>
+  </div>
+
+  <ol class="steps">
+
+    <li class="step" id="step1">
+      <div class="step-header" onclick="toggleStep(1)">
+        <span class="step-num">1</span>
+        <span class="step-title">Stop. Hands off.</span>
+      </div>
+      <div class="step-body">
+        Physically remove your hands from the keyboard or phone. Place them palms-down on your thighs or flat on the desk. This breaks the autopilot loop before it starts.
+        <span class="cue">"I notice the pull. I'm choosing to pause."</span>
+      </div>
+    </li>
+
+    <li class="step" id="step2">
+      <div class="step-header" onclick="toggleStep(2)">
+        <span class="step-num">2</span>
+        <span class="step-title">Name what's happening.</span>
+      </div>
+      <div class="step-body">
+        Silently label the feeling. Not a story, just a word: <em>arousal</em>, <em>wanting</em>, <em>restlessness</em>. Naming it moves you from being inside the urge to observing it from the outside.
+        <span class="cue">"Wanting is here. I see it."</span>
+      </div>
+    </li>
+
+    <li class="step" id="step3">
+      <div class="step-header" onclick="toggleStep(3)">
+        <span class="step-num">3</span>
+        <span class="step-title">Three slow breaths.</span>
+      </div>
+      <div class="step-body">
+        Breathe in through your nose for 4 counts. Out through your mouth for 6 counts. Feel the air at the tip of your nostrils. Let the exhale be soft and complete. Repeat three times. Use the breathing circle above if it helps.
+        <span class="cue">"In&hellip; 2&hellip; 3&hellip; 4&hellip; Out&hellip; 2&hellip; 3&hellip; 4&hellip; 5&hellip; 6&hellip;"</span>
+      </div>
+    </li>
+
+    <li class="step" id="step4">
+      <div class="step-header" onclick="toggleStep(4)">
+        <span class="step-num">4</span>
+        <span class="step-title">Feel, don't follow.</span>
+      </div>
+      <div class="step-body">
+        Drop your attention into your body. Where is the sensation? Warmth in the chest, tension in the belly, energy somewhere lower? Just feel the raw sensation without building a story around it. Without the mental images, the feeling is just a feeling. It's manageable.
+        <span class="cue">"This is sensation. It's not a command."</span>
+      </div>
+    </li>
+
+    <li class="step" id="step5">
+      <div class="step-header" onclick="toggleStep(5)">
+        <span class="step-num">5</span>
+        <span class="step-title">Surf the wave.</span>
+      </div>
+      <div class="step-body">
+        The urge is a wave. It will build, crest, and fall on its own — usually within 10 to 20 minutes — <em>if you don't feed it</em>. You don't need to fight it or push it away. Just stay still and watch. Notice the intensity rising, the peak, and then the slow fade. Each wave you ride makes the next one smaller.
+        <span class="cue">"This will pass. It always does."</span>
+      </div>
+    </li>
+
+    <li class="step" id="step6">
+      <div class="step-header" onclick="toggleStep(6)">
+        <span class="step-num">6</span>
+        <span class="step-title">Redirect with purpose.</span>
+      </div>
+      <div class="step-body">
+        Ask yourself: <em>"What do I actually want to be doing right now?"</em> Then do that one thing. Stand up. Walk to another room. Get water. Change your physical context — the urge is tied to the environment. Even a small shift breaks the spell.
+        <span class="cue">"I choose what I do next."</span>
+      </div>
+    </li>
+
+  </ol>
+
+  <div class="closing">
+    <p>The feeling arose, and you stayed present.<br>That is enough. That is the practice.</p>
+    <p class="remind">Bookmark this page. Come back whenever you need it.</p>
+  </div>
+</div>
+
+<script>
+  let breathing = false;
+  let breathInterval = null;
+
+  function toggleBreath() {
+    const ring = document.getElementById('breathRing');
+    const label = document.getElementById('breathLabel');
+    breathing = !breathing;
+
+    if (breathing) {
+      ring.classList.add('active');
+      runBreathCycle(label);
+      breathInterval = setInterval(() => runBreathCycle(label), 10000);
+    } else {
+      ring.classList.remove('active');
+      clearInterval(breathInterval);
+      label.textContent = 'begin';
+    }
+  }
+
+  function runBreathCycle(label) {
+    label.textContent = 'breathe in';
+    setTimeout(() => { label.textContent = 'hold'; }, 4000);
+    setTimeout(() => { label.textContent = 'breathe out'; }, 5000);
+  }
+
+  function toggleStep(n) {
+    document.getElementById('step' + n).classList.toggle('done');
+  }
+</script>
+
+</body>
+</html>
